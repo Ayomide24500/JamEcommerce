@@ -57,12 +57,12 @@ const Homepage = () => {
         <div className="w-full h-[610px]">
           <Slider
             {...settings}
-            className="w-full lg:h-full h-[450px]"
+            className="w-full lg:h-full h-[400px]"
             afterChange={(current) => setCurrentSlide(current)}
           >
             {slides.map((slide, index) => (
-              <div key={index} className="w-full lg:h-[700px] h-[430px] flex">
-                <div className="lg:h-[600px] h-[370px] w-[100%] flex justify-between items-center lg:flex-row flex-col">
+              <div key={index} className="w-full lg:h-[600px] h-[430px] flex">
+                <div className="lg:h-[500px] h-[370px] w-[100%] flex justify-between items-center lg:flex-row flex-col">
                   <div
                     className={`lg:h-full h-[450px] lg:w-[47%] w-full flex items-end justify-start p-8 transition-transform duration-1000 ${
                       currentSlide === index ? "slide-in" : ""
