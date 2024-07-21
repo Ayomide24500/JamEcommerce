@@ -57,7 +57,7 @@ const Homepage = () => {
         <div className="w-full h-[610px]">
           <Slider
             {...settings}
-            className="w-full lg:h-full h-[400px]"
+            className="w-full lg:h-full h-[480px]"
             afterChange={(current) => setCurrentSlide(current)}
           >
             {slides.map((slide, index) => (
