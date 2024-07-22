@@ -18,12 +18,14 @@ const Watches = () => {
           rating={3}
           sold={true}
           onQuickLook={handleQuickLook}
+          description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ut ullamcorper leo, eget euismod orci. Cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus. Vestibulum ultricies aliquam convallis."
         />
         <ProductCard
           text="Golden Watches"
           image={pic1}
           rating={3}
           sold={true}
+          description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ut ullamcorper leo, eget euismod orci. Cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus. Vestibulum ultricies aliquam convallis."
           onQuickLook={handleQuickLook}
         />
         <ProductCard
@@ -31,12 +33,14 @@ const Watches = () => {
           image={pic2}
           rating={3}
           sold={true}
+          description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ut ullamcorper leo, eget euismod orci. Cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus. Vestibulum ultricies aliquam convallis."
           onQuickLook={handleQuickLook}
         />
         <ProductCard
           text="Golden Watches"
           image={pic3}
           rating={3}
+          description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ut ullamcorper leo, eget euismod orci. Cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus. Vestibulum ultricies aliquam convallis."
           sold={true}
           onQuickLook={handleQuickLook}
         />
@@ -45,6 +49,7 @@ const Watches = () => {
           image={pic4}
           rating={3}
           sold={true}
+          description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ut ullamcorper leo, eget euismod orci. Cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus. Vestibulum ultricies aliquam convallis."
           onQuickLook={handleQuickLook}
         />
       </div>

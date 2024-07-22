@@ -18,12 +18,14 @@ const ShoesAndBags = () => {
           image={pic}
           rating={3}
           sold={true}
+          description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ut ullamcorper leo, eget euismod orci. Cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus. Vestibulum ultricies aliquam convallis."
           onQuickLook={handleQuickLook}
         />
         <ProductCard
           text="Golden Watches"
           image={pic1}
           rating={3}
+          description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ut ullamcorper leo, eget euismod orci. Cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus. Vestibulum ultricies aliquam convallis."
           sold={false}
           onQuickLook={handleQuickLook}
         />
@@ -32,6 +34,7 @@ const ShoesAndBags = () => {
           image={pic2}
           rating={3}
           sold={false}
+          description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ut ullamcorper leo, eget euismod orci. Cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus. Vestibulum ultricies aliquam convallis."
           onQuickLook={handleQuickLook}
         />
         <ProductCard
@@ -39,12 +42,14 @@ const ShoesAndBags = () => {
           image={pic3}
           rating={3}
           sold={true}
+          description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ut ullamcorper leo, eget euismod orci. Cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus. Vestibulum ultricies aliquam convallis."
           onQuickLook={handleQuickLook}
         />
         <ProductCard
           text="Golden Watches"
           image={pic4}
           rating={3}
+          description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ut ullamcorper leo, eget euismod orci. Cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus. Vestibulum ultricies aliquam convallis."
           sold={false}
           onQuickLook={handleQuickLook}
         />
@@ -53,6 +58,7 @@ const ShoesAndBags = () => {
           image={pic5}
           rating={3}
           sold={false}
+          description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ut ullamcorper leo, eget euismod orci. Cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus. Vestibulum ultricies aliquam convallis."
           onQuickLook={handleQuickLook}
         />
       </div>
