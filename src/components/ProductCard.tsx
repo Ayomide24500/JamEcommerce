@@ -5,6 +5,7 @@ interface ProductCardProps {
   text: string;
   image: string;
   rating: number;
+  description: string;
   sold?: boolean;
   onQuickLook?: () => void;
 }
@@ -13,6 +14,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   text,
   image,
   rating,
+  description,
   sold = false,
   onQuickLook = () => {},
 }) => {
@@ -62,7 +64,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
         text={text}
         image={image}
         rating={rating}
-        description="This is a detailed description of the product."
+        description={description}
         onAddToCart={handleAddToCart}
       />
     </div>

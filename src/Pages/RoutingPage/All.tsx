@@ -18,12 +18,14 @@ const All = () => {
           rating={3}
           sold={true}
           onQuickLook={handleQuickLook}
+          description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ut ullamcorper leo, eget euismod orci. Cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus. Vestibulum ultricies aliquam convallis."
         />
         <ProductCard
           text="Elegant Unisex Wear"
           image={pic1}
           rating={4}
           sold={false}
+          description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ut ullamcorper leo, eget euismod orci. Cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus. Vestibulum ultricies aliquam convallis."
           onQuickLook={handleQuickLook}
         />
         <ProductCard
@@ -31,6 +33,7 @@ const All = () => {
           image={pic2}
           rating={5}
           sold={false}
+          description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ut ullamcorper leo, eget euismod orci. Cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus. Vestibulum ultricies aliquam convallis."
           onQuickLook={handleQuickLook}
         />
         <ProductCard
@@ -38,6 +41,7 @@ const All = () => {
           image={pic4}
           rating={5}
           sold={false}
+          description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ut ullamcorper leo, eget euismod orci. Cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus. Vestibulum ultricies aliquam convallis."
           onQuickLook={handleQuickLook}
         />
         <ProductCard
@@ -45,6 +49,7 @@ const All = () => {
           image={pic5}
           rating={5}
           sold={false}
+          description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ut ullamcorper leo, eget euismod orci. Cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus. Vestibulum ultricies aliquam convallis."
           onQuickLook={handleQuickLook}
         />
         <ProductCard
@@ -52,6 +57,7 @@ const All = () => {
           image={pic3}
           rating={5}
           sold={false}
+          description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ut ullamcorper leo, eget euismod orci. Cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus. Vestibulum ultricies aliquam convallis."
           onQuickLook={handleQuickLook}
         />
       </div>
