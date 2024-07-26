@@ -1,65 +1,57 @@
-import pic from "../../assets/10.jpg";
-import pic1 from "../../assets/shoe1.jpeg";
-import pic2 from "../../assets/mn.jpg";
-import pic3 from "../../assets/bh.jpg";
-import pic4 from "../../assets/ui.png";
-import pic5 from "../../assets/fg.jpg";
+import React, { useEffect, useState } from "react";
+import { getStore } from "../../api/Admin";
 import ProductCard from "../../components/ProductCard";
+import { Product } from "../../components/interface";
 
-const All = () => {
-  const handleQuickLook = () => {};
+const All: React.FC = () => {
+  const [loading, setLoading] = useState<boolean>(true);
+  const [data, setData] = useState<Product[]>([]);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await getStore();
+        console.log("API Response:", response);
+        setData(response.data);
+        setLoading(false);
+      } catch (error: any) {
+        setError(error.message || "Failed to fetch products.");
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
+  const handleQuickLook = (product: Product) => {
+    console.log("Quick look:", product);
+  };
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>{error}</div>;
 
   return (
-    <div className="w-full min-h-[120vh] p-4">
-      <div className="grid w-full min-h-[116vh] gap-4 lg:grid-cols-3 sm:grid-cols-1 md:grid-cols-3">
-        <ProductCard
-          text="Golden Watches"
-          image={pic}
-          rating={3}
-          sold={true}
-          onQuickLook={handleQuickLook}
-          description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ut ullamcorper leo, eget euismod orci. Cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus. Vestibulum ultricies aliquam convallis."
-        />
-        <ProductCard
-          text="Elegant Unisex Wear"
-          image={pic1}
-          rating={4}
-          sold={false}
-          description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ut ullamcorper leo, eget euismod orci. Cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus. Vestibulum ultricies aliquam convallis."
-          onQuickLook={handleQuickLook}
-        />
-        <ProductCard
-          text="Stylish Shoes and Bags"
-          image={pic2}
-          rating={5}
-          sold={false}
-          description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ut ullamcorper leo, eget euismod orci. Cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus. Vestibulum ultricies aliquam convallis."
-          onQuickLook={handleQuickLook}
-        />
-        <ProductCard
-          text="Stylish Shoes and Bags"
-          image={pic4}
-          rating={5}
-          sold={false}
-          description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ut ullamcorper leo, eget euismod orci. Cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus. Vestibulum ultricies aliquam convallis."
-          onQuickLook={handleQuickLook}
-        />
-        <ProductCard
-          text="Stylish Shoes and Bags"
-          image={pic5}
-          rating={5}
-          sold={false}
-          description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ut ullamcorper leo, eget euismod orci. Cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus. Vestibulum ultricies aliquam convallis."
-          onQuickLook={handleQuickLook}
-        />
-        <ProductCard
-          text="Stylish Shoes and Bags"
-          image={pic3}
-          rating={5}
-          sold={false}
-          description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ut ullamcorper leo, eget euismod orci. Cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus. Vestibulum ultricies aliquam convallis."
-          onQuickLook={handleQuickLook}
-        />
+    <div className="w-full min-h-[100%] p-4">
+      <div className="grid w-full h-[100%] gap-4 lg:grid-cols-4 sm:grid-cols-1 md:grid-cols-3">
+        {data?.length > 0 ? (
+          data.map((product: any) => (
+            <ProductCard
+              key={product._id}
+              productName={product.productName || "Unknown Name"}
+              category={product.category || "Unknown Category"}
+              image={product.image || ""}
+              rating={product.rating || "⭐".repeat(3)}
+              price={product.price || "no price yet"}
+              sold={product.sold || false}
+              onQuickLook={() => handleQuickLook(product._id)}
+              description={product.description || "No description available"}
+              id={product._id}
+            />
+          ))
+        ) : (
+          <div>No products available</div>
+        )}
       </div>
     </div>
   );

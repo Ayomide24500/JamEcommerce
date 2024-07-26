@@ -1,57 +1,61 @@
-import pic from "../../assets/10.jpg";
-import pic1 from "../../assets/er.png";
-import pic2 from "../../assets/ho.png";
-import pic3 from "../../assets/ki.png";
-import pic4 from "../../assets/ui.png";
+import React, { useEffect, useState } from "react";
+import { getStore } from "../../api/Admin";
 import ProductCard from "../../components/ProductCard";
+import { Product } from "../../components/interface";
 
-const Watches = () => {
-  const handleQuickLook = () => {
-    alert("Quick look clicked!");
+const Watches: React.FC = () => {
+  const [loading, setLoading] = useState<boolean>(true);
+  const [data, setData] = useState<Product[]>([]);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await getStore();
+        console.log("API Response:", response);
+        setData(response.data);
+        setLoading(false);
+      } catch (error: any) {
+        setError(error.message || "Failed to fetch products.");
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
+  const handleQuickLook = (product: Product) => {
+    console.log("Quick look:", product);
   };
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>{error}</div>;
+
+  const filteredProducts = data.filter(
+    (product) => product.category === "Watches"
+  );
+
   return (
     <div className="w-full min-h-[100vh] p-4">
       <div className="grid w-full min-h-[100vh] gap-4 lg:grid-cols-3 sm:grid-cols-1 md:grid-cols-3">
-        <ProductCard
-          text="Golden Watches"
-          image={pic}
-          rating={3}
-          sold={true}
-          onQuickLook={handleQuickLook}
-          description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ut ullamcorper leo, eget euismod orci. Cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus. Vestibulum ultricies aliquam convallis."
-        />
-        <ProductCard
-          text="Golden Watches"
-          image={pic1}
-          rating={3}
-          sold={true}
-          description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ut ullamcorper leo, eget euismod orci. Cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus. Vestibulum ultricies aliquam convallis."
-          onQuickLook={handleQuickLook}
-        />
-        <ProductCard
-          text="Golden Watches"
-          image={pic2}
-          rating={3}
-          sold={true}
-          description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ut ullamcorper leo, eget euismod orci. Cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus. Vestibulum ultricies aliquam convallis."
-          onQuickLook={handleQuickLook}
-        />
-        <ProductCard
-          text="Golden Watches"
-          image={pic3}
-          rating={3}
-          description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ut ullamcorper leo, eget euismod orci. Cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus. Vestibulum ultricies aliquam convallis."
-          sold={true}
-          onQuickLook={handleQuickLook}
-        />
-        <ProductCard
-          text="Golden Watches"
-          image={pic4}
-          rating={3}
-          sold={true}
-          description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ut ullamcorper leo, eget euismod orci. Cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus. Vestibulum ultricies aliquam convallis."
-          onQuickLook={handleQuickLook}
-        />
+        {filteredProducts.length > 0 ? (
+          filteredProducts.map((product: any) => (
+            <ProductCard
+              key={product._id}
+              productName={product.productName || "Unknown Name"}
+              category={product.category || "Unknown Category"}
+              image={product.image || ""}
+              rating={product.rating || "⭐".repeat(3)}
+              price={product.price || "no price yet"}
+              sold={product.sold || false}
+              onQuickLook={() => handleQuickLook(product)}
+              description={product.description || "No description available"}
+              id={product._id}
+            />
+          ))
+        ) : (
+          <div>No products available</div>
+        )}
       </div>
     </div>
   );

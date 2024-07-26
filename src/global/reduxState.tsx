@@ -1,67 +1,89 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { v4 as uuidv4 } from "uuid";
 
 const initialState = {
-  toggle: false,
-  user: "" || null,
-  product: [],
+  user: null,
+  products: [] as any,
   cart: [] as any,
+  notifications: [] as any,
+  isNotificationVisible: false,
 };
 
 const reduxState = createSlice({
   name: "reduxState",
   initialState,
   reducers: {
-    changeToggle: (state, { payload }) => {
-      state.toggle = payload;
-    },
-
-    loginUser: (state, { payload }) => {
+    loginUser: (state, { payload }: any) => {
       state.user = payload;
     },
-
     logOut: (state) => {
       state.user = null;
     },
-
-    addProduct: (state, { payload }) => {
-      state.product = payload;
+    addProduct: (state: any, { payload }: any) => {
+      state.products.push(payload);
     },
-
     addCart: (state, { payload }) => {
-      // state.cart = [];
-
-      const check = state.cart.find((el: any) => el.id === payload.id);
-
-      if (check) {
-        check.QTY += 1;
+      const existingProduct = state.cart.find((p: any) => p.id === payload.id);
+      if (existingProduct) {
+        existingProduct.QTY += payload.QTY;
       } else {
-        state.cart.push({ ...payload, QTY: 1 });
+        state.cart.push(payload);
       }
     },
-
     removeFromCart: (state, { payload }) => {
-      // state.cart = [];
-
-      const check = state.cart.filter((el: any) => el.id !== payload.id);
-      state.cart = check;
+      state.cart = state.cart.filter((el: any) => el.id !== payload.id);
+    },
+    removeFromNotification: (state, { payload }) => {
+      state.notifications = state.notifications.filter(
+        (el: any) => el.id !== payload.id
+      );
     },
 
-    removeCartQTY: (state, { payload }) => {
-      // state.cart = [];
-
-      const checkCart = state.cart.findIndex((el: any) => el.id === payload.id);
-
-      if (state.cart[checkCart].QTY > 1) {
-        state.cart[checkCart].QTY -= 1;
-      } else if (state.cart[checkCart].QTY === 1) {
-        const check = state.cart.filter((el: any) => el.id !== payload.id);
-        state.cart = check;
+    increaseCartQTY: (state, { payload }) => {
+      const item = state.cart.find((el: any) => el.id === payload.id);
+      if (item) {
+        item.QTY += 1;
       }
+    },
+    decreaseCartQTY: (state, { payload }) => {
+      const item = state.cart.find((el: any) => el.id === payload.id);
+      if (item && item.QTY > 1) {
+        item.QTY -= 1;
+      } else if (item && item.QTY === 1) {
+        state.cart = state.cart.filter((el: any) => el.id !== payload.id);
+      }
+    },
+    clearState: (state) => {
+      state.products = [];
+      state.cart = [];
+      state.notifications = [];
+    },
+    notifyAdmin: (state, { payload }) => {
+      state.notifications.push({ ...payload, id: uuidv4() });
+    },
+
+    addUser: (state, { payload }) => {
+      state.user = payload;
+    },
+    toggleNotificationVisibility: (state) => {
+      state.isNotificationVisible = !state.isNotificationVisible;
     },
   },
 });
 
-export const { changeToggle, loginUser, logOut, addProduct, addCart } =
-  reduxState.actions;
+export const {
+  loginUser,
+  logOut,
+  addProduct,
+  addCart,
+  removeFromCart,
+  increaseCartQTY,
+  decreaseCartQTY,
+  clearState,
+  notifyAdmin,
+  removeFromNotification,
+  addUser,
+  toggleNotificationVisibility,
+} = reduxState.actions;
 
 export default reduxState.reducer;

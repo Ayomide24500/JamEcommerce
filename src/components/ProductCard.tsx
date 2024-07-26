@@ -1,24 +1,32 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Detail from "../Pages/RoutingPage/Detaile";
 
 interface ProductCardProps {
-  text: string;
+  productName: string;
   image: string;
   rating: number;
+  price: string;
   description: string;
+  id: string;
+  category: string;
   sold?: boolean;
   onQuickLook?: () => void;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({
-  text,
+  productName,
   image,
-  rating,
+  id,
+  category,
   description,
+  price,
   sold = false,
   onQuickLook = () => {},
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [rating, setRating] = useState<number>(0);
+
+  // console.log("productid", id);
 
   const handleQuickLook = () => {
     setIsModalOpen(true);
@@ -29,12 +37,13 @@ const ProductCard: React.FC<ProductCardProps> = ({
     setIsModalOpen(false);
   };
 
-  const handleAddToCart = () => {
-    alert("Added to cart!");
-  };
+  useEffect(() => {
+    const randomRating = Math.floor(Math.random() * 5) + 1;
+    setRating(randomRating);
+  }, []);
 
   return (
-    <div className="min-h-[430px] lg:w-[80%] w-full flex flex-col justify-center items-center">
+    <div className="h-[380px] lg:w-[70%] w-full flex flex-col justify-center items-center">
       <div className="w-full h-full bg-[#f0f0f0] flex flex-col">
         <div className="text-end text-[12px] pr-3 pt-2">
           {sold ? "SOLD" : ""}
@@ -54,18 +63,23 @@ const ProductCard: React.FC<ProductCardProps> = ({
         </div>
       </div>
       <div className="mt-4 flex justify-center items-center flex-col">
-        <p>{text}</p>
-        <p>{"⭐".repeat(rating)}</p>
-        <p className="text-gray-400 cursor-pointer">Read More</p>
+        <p>{productName}</p>
+        <p className="text-yellow-500 mb-1">
+          {"⭐".repeat(rating)}{" "}
+          {rating > 0 && <span className="text-gray-400">({rating})</span>}
+        </p>
+        <p>{price} ₦</p>
       </div>
       <Detail
         isOpen={isModalOpen}
         onClose={handleCloseModal}
-        text={text}
         image={image}
         rating={rating}
+        id={id}
+        productName={productName}
+        category={category}
         description={description}
-        onAddToCart={handleAddToCart}
+        price={price}
       />
     </div>
   );

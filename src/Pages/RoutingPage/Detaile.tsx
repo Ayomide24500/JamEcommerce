@@ -1,35 +1,61 @@
 import React, { useState } from "react";
-import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+// import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import { useDispatch } from "react-redux";
+import { addCart } from "../../global/reduxState";
+import { toast } from "react-hot-toast";
+
 interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
-  text: string;
+  productName: string;
+  category: string;
   image: string;
+  id: string;
+  price: string;
   rating: number;
   description: string;
-  onAddToCart: (quantity: number) => void;
 }
 
 const Detail: React.FC<ModalProps> = ({
   isOpen,
   onClose,
-  text,
+  category,
+  id,
+  productName,
   image,
+  price,
   rating,
   description,
-  onAddToCart,
 }) => {
-  const [quantity, setQuantity] = useState(1);
+  const [quantity] = useState(1);
+  const dispatch = useDispatch();
 
   if (!isOpen) return null;
 
-  const handleIncrease = () => setQuantity(quantity + 1);
-  const handleDecrease = () => {
-    if (quantity > 1) setQuantity(quantity - 1);
-  };
+  // const handleIncrease = () => setQuantity(quantity + 1);
+  // const handleDecrease = () => {
+  //   if (quantity > 1) setQuantity(quantity - 1);
+  // };
 
   const handleAddToCart = () => {
-    onAddToCart(quantity);
+    try {
+      const productData = {
+        productName,
+        category,
+        id,
+        image,
+        price,
+        rating,
+        description,
+        QTY: quantity,
+      };
+      dispatch(addCart(productData));
+      console.log(productData);
+
+      toast.success("Item added to cart!");
+    } catch (error) {
+      toast.error("Failed to add item to cart!");
+    }
   };
 
   return (
@@ -45,23 +71,16 @@ const Detail: React.FC<ModalProps> = ({
           <div className="flex items-center justify-center">
             <img
               src={image}
-              alt={text}
+              alt={productName}
               className="w-full h-auto object-contain mb-4 rounded"
             />
           </div>
           <div className="flex flex-col gap-10 p-4">
-            <h2 className="text-[14px] mb-2">{text}</h2>
+            <h2 className="text-[14px] mb-2">{productName}</h2>
             <p className="text-yellow-500 mb-2">{"⭐".repeat(rating)}</p>
             <p className="text-gray-700 text-[13px] mb-4">{description}</p>
-            <div className="flex items-center mb-4">
-              <button className="px-3 py-1 rounded-l" onClick={handleDecrease}>
-                <FaArrowLeft className="text-[13px]" />
-              </button>
-              <span className="px-2 py-1 bg-gray-100">{quantity}</span>
-              <button className="px-3 py-1 rounded-r" onClick={handleIncrease}>
-                <FaArrowRight className="text-[13px]" />
-              </button>
-            </div>
+            <p className="text-gray-700 text-[13px] mb-4">{price}</p>
+            <p className="text-gray-700 text-[13px] mb-4">{category}</p>
             <button
               className="bg-black text-white px-4 py-2 rounded hover:bg-gray-800"
               onClick={handleAddToCart}
@@ -82,29 +101,17 @@ const Detail: React.FC<ModalProps> = ({
         <div className="w-full mb-4">
           <img
             src={image}
-            alt={text}
+            alt={productName}
             className="w-full h-auto object-contain rounded"
           />
         </div>
         <div className="text-center">
-          <h2 className="lg:text-2xl font-bold mb-2">{text}</h2>
+          <h2 className="lg:text-2xl font-bold mb-2">{productName}</h2>
           <p className="text-yellow-500 mb-2">{"⭐".repeat(rating)}</p>
+          <p className="text-yellow-500 mb-2">{price}</p>
           <p className="text-gray-700 text-[10px] mb-4">{description}</p>
-          <div className="flex items-center justify-center mb-4">
-            <button
-              className="px-3 py-1 bg-gray-200 rounded-l"
-              onClick={handleDecrease}
-            >
-              -
-            </button>
-            <span className="px-4 py-1 bg-gray-100">{quantity}</span>
-            <button
-              className="px-3 py-1 bg-gray-200 rounded-r"
-              onClick={handleIncrease}
-            >
-              +
-            </button>
-          </div>
+          <p className="text-gray-700 text-[10px] mb-4">{category}</p>
+
           <button
             className="bg-black text-white px-4 py-2 rounded hover:bg-gray-800"
             onClick={handleAddToCart}
