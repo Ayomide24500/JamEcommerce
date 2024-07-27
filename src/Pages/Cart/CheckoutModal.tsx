@@ -1,7 +1,13 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
-import { notifyAdmin } from "../../global/reduxState";
+import {
+  incrementDailyConfirmations,
+  notifyAdmin,
+  setTotalCustomers,
+  setTotalOrders,
+  setTotalSales,
+} from "../../global/reduxState";
 
 interface CheckoutConfirmationModalProps {
   isOpen: boolean;
@@ -19,16 +25,30 @@ const CheckoutModal: React.FC<CheckoutConfirmationModalProps> = ({
 
   const user = useSelector((state: any) => state.user);
   const product = useSelector((state: any) => state.cart);
+  const currentTotalOrders = useSelector((state: any) => state.totalOrders);
+  const updatedTotalOrders = currentTotalOrders + 1;
+  const cartItems = useSelector((state: any) => state.cart);
+  const updatedTotalSales = cartItems.reduce(
+    (total: any, item: any) => total + item.price * item.QTY,
+    0
+  );
+  const currentTotalCustomers = useSelector(
+    (state: any) => state.totalCustomers
+  );
+  const updatedTotalCustomers = currentTotalCustomers + 1;
 
   const handleConfirm = () => {
     dispatch(notifyAdmin({ user, product }));
-    setIsVisible(false); // Start hiding the modal
+    dispatch(incrementDailyConfirmations());
+    dispatch(setTotalOrders(updatedTotalOrders));
+    dispatch(setTotalSales(updatedTotalSales));
+    dispatch(setTotalCustomers(updatedTotalCustomers));
+    setIsVisible(false);
     setTimeout(() => {
-      onConfirm(); // Call the onConfirm handler after the animation completes
-    }, 300); // Match this duration with the exit animation duration
+      onConfirm();
+    }, 300);
   };
 
-  // Handle the visibility change
   React.useEffect(() => {
     if (isOpen) {
       setIsVisible(true);
@@ -42,14 +62,14 @@ const CheckoutModal: React.FC<CheckoutConfirmationModalProps> = ({
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      transition={{ duration: 0.3 }} // Adjust to match the timeout
+      transition={{ duration: 0.3 }}
       className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50"
     >
       <motion.div
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         exit={{ y: -100 }}
-        transition={{ duration: 0.3 }} // Adjust to match the timeout
+        transition={{ duration: 0.3 }}
         className="bg-white p-5 rounded-lg shadow-lg min-h-[40%] md:w-[50%] w-[90%] lg:w-[40%]"
       >
         <h2 className="text-xl font-bold">Confirm Your Order</h2>
@@ -86,12 +106,6 @@ const CheckoutModal: React.FC<CheckoutConfirmationModalProps> = ({
           ))}
         </div>
         <div className="mt-5 flex justify-end gap-3">
-          <button
-            onClick={onClose}
-            className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-700"
-          >
-            Cancel
-          </button>
           <button
             onClick={handleConfirm}
             className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-700"

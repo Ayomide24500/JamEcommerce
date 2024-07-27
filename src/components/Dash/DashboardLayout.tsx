@@ -1,6 +1,7 @@
 import DashHeader from "./DashHeader";
 import Sidebar from "./Sidebar";
 import AdminDash from "../../Pages/Dashboard/AdminDash";
+import React from "react";
 
 function DashboardLayout() {
   return (

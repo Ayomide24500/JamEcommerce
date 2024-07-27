@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { getStore } from "../../api/Admin";
 import ProductCard from "../../components/ProductCard";
 import { Product } from "../../components/interface";
+import { BounceLoader } from "react-spinners";
 
 const All: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
@@ -28,13 +29,20 @@ const All: React.FC = () => {
     console.log("Quick look:", product);
   };
 
-  if (loading) return <div>Loading...</div>;
+  if (loading)
+    return (
+      <div className="flex justify-center items-center h-full">
+        <BounceLoader color="#36d7b7" size={30} />
+      </div>
+    );
   if (error) return <div>{error}</div>;
 
   return (
     <div className="w-full min-h-[100%] p-4">
       <div className="grid w-full h-[100%] gap-4 lg:grid-cols-4 sm:grid-cols-1 md:grid-cols-3">
         {data?.length > 0 ? (
+          <div>No product found</div>
+        ) : (
           data.map((product: any) => (
             <ProductCard
               key={product._id}
@@ -49,8 +57,6 @@ const All: React.FC = () => {
               id={product._id}
             />
           ))
-        ) : (
-          <div>No products available</div>
         )}
       </div>
     </div>

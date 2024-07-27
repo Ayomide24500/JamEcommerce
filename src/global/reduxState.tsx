@@ -7,6 +7,10 @@ const initialState = {
   cart: [] as any,
   notifications: [] as any,
   isNotificationVisible: false,
+  totalSales: 0,
+  totalOrders: 0,
+  totalCustomers: 0,
+  dailyConfirmations: 0,
 };
 
 const reduxState = createSlice({
@@ -68,6 +72,22 @@ const reduxState = createSlice({
     toggleNotificationVisibility: (state) => {
       state.isNotificationVisible = !state.isNotificationVisible;
     },
+    setTotalSales: (state, { payload }: any) => {
+      state.totalSales = payload;
+    },
+    setTotalOrders: (state, { payload }: any) => {
+      state.totalOrders = payload;
+    },
+    setTotalCustomers: (state, { payload }: any) => {
+      state.totalCustomers = payload;
+    },
+    incrementDailyConfirmations: (state) => {
+      state.dailyConfirmations += 1;
+    },
+
+    resetDailyData: (state) => {
+      state.dailyConfirmations = 0;
+    },
   },
 });
 
@@ -84,6 +104,11 @@ export const {
   removeFromNotification,
   addUser,
   toggleNotificationVisibility,
+  setTotalSales,
+  setTotalOrders,
+  setTotalCustomers,
+  incrementDailyConfirmations,
+  resetDailyData,
 } = reduxState.actions;
 
 export default reduxState.reducer;

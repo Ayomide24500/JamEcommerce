@@ -25,6 +25,16 @@ export const LoginAdmin = async (data: any) => {
   }
 };
 
+export const verifyAdmin = async (adminID: string) => {
+  try {
+    return await axios.patch(`${URL}verify/${adminID}`).then((res: any) => {
+      return res?.data;
+    });
+  } catch (error) {
+    return error;
+  }
+};
+
 export const CreateStore = async (data: any) => {
   try {
     const config: any = {

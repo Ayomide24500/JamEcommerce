@@ -1,12 +1,13 @@
-// AuthForm.js
-import { useState } from "react";
-import { createAdmin } from "../../api/Admin";
+import { useEffect, useState } from "react";
+import { createAdmin, verifyAdmin } from "../../api/Admin";
 import { Toaster, toast } from "react-hot-toast";
 import Login from "./Login";
 import { Link } from "react-router-dom";
+import React from "react";
 
 const AuthForm = () => {
   const [isRegister, setIsRegister] = useState(false);
+  const [isVerify, setIsVerify] = useState(false);
   const [firstName, setFirstName] = useState("");
   const [token] = useState("");
   const [verify] = useState(false);
@@ -26,9 +27,13 @@ const AuthForm = () => {
         lastName,
       });
 
+      // const VerifyAdmin = (res: any) => {
+
+      // };
+
       if (res && res?.data?.data?.verify === false) {
         toast.success("Registration successful but not verify!");
-        setIsRegister(false);
+        setIsVerify(true);
       } else {
         setErrorMessage("Failed to register. Please try again.");
       }
@@ -47,14 +52,19 @@ const AuthForm = () => {
     <div className="lg:w-full h-[390px] relative overflow-hidden mt-6">
       <div>
         <p className="text-[10px] pb-3 text-red-600">
-          only Admin Register this page
+          Only Admin Register this page
         </p>
       </div>
       <div className="lg:h-[50px] h-[40px] w-full flex justify-center items-center gap-5">
         <button
-          onClick={() => setIsRegister(false)}
+          onClick={() => {
+            setIsRegister(false);
+            setIsVerify(false);
+          }}
           className={`h-full w-[50%] ${
-            !isRegister ? "bg-gray-700 text-white" : "bg-gray-500 text-white"
+            !isRegister && !isVerify
+              ? "bg-gray-700 text-white"
+              : "bg-gray-500 text-white"
           } transition-all duration-300`}
         >
           Login
@@ -62,7 +72,9 @@ const AuthForm = () => {
         <button
           onClick={() => setIsRegister(true)}
           className={`h-full w-[50%] ${
-            isRegister ? "bg-gray-700 text-white" : "bg-gray-500 text-white"
+            isRegister && !isVerify
+              ? "bg-gray-700 text-white"
+              : "bg-gray-500 text-white"
           } transition-all duration-300`}
         >
           Register
@@ -71,7 +83,11 @@ const AuthForm = () => {
       <div
         className="relative w-full h-full transition-transform duration-500 ease-in-out"
         style={{
-          transform: isRegister ? "translateX(-100%)" : "translateX(0)",
+          transform: isVerify
+            ? "translateX(-200%)"
+            : isRegister
+            ? "translateX(-100%)"
+            : "translateX(0)",
         }}
       >
         <div className="absolute top-0 left-0 w-full h-full flex flex-col gap-4 p-4">
@@ -119,6 +135,11 @@ const AuthForm = () => {
           <div className="text-[12px]">
             <Toaster />
           </div>
+        </div>
+        <div className="absolute top-0 left-[200%] w-full h-full flex flex-col gap-4 p-4">
+          <h2 className="text-xl font-bold">Verify Your Account</h2>
+          <p>Please check your email for a verification link.</p>
+          {/* Add any additional verification steps here */}
         </div>
       </div>
     </div>

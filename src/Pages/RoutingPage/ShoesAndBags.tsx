@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { getStore } from "../../api/Admin";
 import ProductCard from "../../components/ProductCard";
 import { Product } from "../../components/interface";
+import { BounceLoader } from "react-spinners";
 
 const ShoesAndBags: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
@@ -28,11 +29,16 @@ const ShoesAndBags: React.FC = () => {
     console.log("Quick look:", product);
   };
 
-  if (loading) return <div>Loading...</div>;
+  if (loading)
+    return (
+      <div className="flex justify-center items-center h-full">
+        <BounceLoader color="#36d7b7" size={30} />
+      </div>
+    );
   if (error) return <div>{error}</div>;
 
   const filteredProducts = data.filter(
-    (product) => product.category === "Shoe"
+    (product) => product.category === "Shoes"
   );
 
   return (

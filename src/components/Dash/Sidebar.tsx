@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useAuth } from "../../hook/useAuth";
+import React from "react";
 
 const Sidebar = () => {
   const { firstName } = useAuth();

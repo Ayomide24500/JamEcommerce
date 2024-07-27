@@ -5,6 +5,7 @@ import DashboardLayout from "../components/Dash/DashboardLayout";
 import AdminDash from "../Pages/Dashboard/AdminDash";
 import CartPage from "../Pages/Cart/CartPage";
 import { CartProvider } from "../hook/CartContext";
+import React from "react";
 
 export const mainRoute = createBrowserRouter([
   {
