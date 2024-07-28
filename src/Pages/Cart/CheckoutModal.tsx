@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
+import { Toaster, toast } from "react-hot-toast";
+
 import {
   incrementDailyConfirmations,
   notifyAdmin,
@@ -43,6 +45,7 @@ const CheckoutModal: React.FC<CheckoutConfirmationModalProps> = ({
     dispatch(setTotalOrders(updatedTotalOrders));
     dispatch(setTotalSales(updatedTotalSales));
     dispatch(setTotalCustomers(updatedTotalCustomers));
+    toast.success("Registration successful");
     setIsVisible(false);
     setTimeout(() => {
       onConfirm();
@@ -114,6 +117,7 @@ const CheckoutModal: React.FC<CheckoutConfirmationModalProps> = ({
           </button>
         </div>
       </motion.div>
+      <Toaster />
     </motion.div>
   );
 };
