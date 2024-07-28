@@ -1,3 +1,4 @@
+import React from "react";
 import { FC, useEffect } from "react";
 
 interface iTog {
@@ -25,7 +26,7 @@ const Modal: FC<iTog> = ({ show, onClose, children }) => {
       onClick={onClose}
     >
       <div
-        className="bg-white p-4 rounded shadow-lg w-[90%] lg:w-[350px]"
+        className="bg-white p-4 rounded shadow-lg w-[90%] lg:w-[350px] min-h-[400px]"
         onClick={(e) => e.stopPropagation()}
       >
         {children}

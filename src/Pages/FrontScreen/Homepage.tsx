@@ -13,6 +13,7 @@ import ShoesAndBags from "../RoutingPage/ShoesAndBags";
 import All from "../RoutingPage/All";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import "../../index.css";
+import React from "react";
 
 const slides = [
   { text: "Discover Timeless Elegance", image: pic },

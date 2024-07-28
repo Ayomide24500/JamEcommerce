@@ -204,3 +204,33 @@
   background-color: rgb(6, 6, 149);
   clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
 }
+
+.logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f0f0f0;
+}
+
+.logo-bg {
+  background: linear-gradient(135deg, rgb(64, 64, 64), rgb(168, 166, 166));
+  border-radius: 50%;
+  width: 200px;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.logo-text {
+  color: white;
+  text-align: center;
+}
+
+.logo-text h1 {
+  font-family: "Arial", sans-serif;
+  font-size: 24px;
+  margin: 0;
+}

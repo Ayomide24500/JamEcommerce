@@ -4,10 +4,12 @@ import { HiOutlineMenuAlt3 } from "react-icons/hi";
 import { AiOutlineDown } from "react-icons/ai";
 import { useSelector } from "react-redux";
 import Modal from "../Pages/Auth/Modal";
-import AuthForm from "../Pages/Auth/Register";
 import { IoMdCart } from "react-icons/io";
+import pic from "../assets/col1.png";
 import Card from "./Card";
 import { Link } from "react-router-dom";
+import AuthForm from "../Pages/Auth/Register";
+import React from "react";
 
 const Header = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -78,12 +80,7 @@ const Header = () => {
             </div>
           </div>
           <Link to="/">
-            <div className="h-[60px] w-[20%] flex justify-center items-center flex-col">
-              <h1 className="lg:text-2xl text-[12px] font-bold text-gray-400">
-                Jam <span className="text-gray-700">Jam</span>
-              </h1>
-              <p className="text-center font-serif text-[12px]">collections</p>
-            </div>
+            <img src={pic} alt="" className="h-[290px] w-[260px]" />
           </Link>
           <div className="lg:h-[60px] lg:w-[30%] w-[40%] flex justify-around items-center">
             <nav
@@ -103,11 +100,6 @@ const Header = () => {
                   {cart.length}
                 </span>
               )}
-            </div>
-            <div className="lg:hidden">
-              <nav className="text-gray-500 cursor-pointer">
-                <HiOutlineMenuAlt3 className="text-[20px]" />
-              </nav>
             </div>
           </div>
         </div>

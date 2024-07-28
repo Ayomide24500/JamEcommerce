@@ -49,7 +49,7 @@ const AuthForm = () => {
   };
 
   return (
-    <div className="lg:w-full h-[390px] relative overflow-hidden mt-6">
+    <div className="lg:w-full min-h-[390px] relative overflow-hidden mt-6">
       <div>
         <p className="text-[10px] pb-3 text-red-600">
           Only Admin Register this page
@@ -117,11 +117,11 @@ const AuthForm = () => {
               className="border-gray-300 border h-[50px] w-full outline-none px-3"
             />
             <div className="flex justify-between items-center">
-              <label className="flex items-center text-[13px]">
+              <label className="flex items-center text-[12px]">
                 <input type="checkbox" className="mr-2" />
                 Remember Me
               </label>
-              <Link to="" className="text-gray-500 text-sm text-[10px]">
+              <Link to="" className="text-gray-500 text-[10px]">
                 Forgot Password?
               </Link>
             </div>
