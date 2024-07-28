@@ -14,10 +14,14 @@ const All: React.FC = () => {
       try {
         const response = await getStore();
         console.log("API Response:", response);
-        setData(response.data);
-        setLoading(false);
+        if (response && response.data) {
+          setData(response.data);
+        } else {
+          setError("No data received from API");
+        }
       } catch (error: any) {
         setError(error.message || "Failed to fetch products.");
+      } finally {
         setLoading(false);
       }
     };
@@ -29,18 +33,22 @@ const All: React.FC = () => {
     console.log("Quick look:", product);
   };
 
-  if (loading)
+  if (loading) {
     return (
       <div className="flex justify-center items-center h-full">
         <BounceLoader color="#36d7b7" size={30} />
       </div>
     );
-  if (error) return <div>{error}</div>;
+  }
+
+  if (error) {
+    return <div>{error}</div>;
+  }
 
   return (
     <div className="w-full min-h-[100%] p-4">
       <div className="grid w-full h-[100%] gap-4 lg:grid-cols-4 sm:grid-cols-1 md:grid-cols-3">
-        {data?.length > 0 ? (
+        {data.length === 0 ? (
           <div>No product found</div>
         ) : (
           data.map((product: any) => (
@@ -52,7 +60,7 @@ const All: React.FC = () => {
               rating={product.rating || "⭐".repeat(3)}
               price={product.price || "no price yet"}
               sold={product.sold || false}
-              onQuickLook={() => handleQuickLook(product._id)}
+              onQuickLook={() => handleQuickLook(product)}
               description={product.description || "No description available"}
               id={product._id}
             />

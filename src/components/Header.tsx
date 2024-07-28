@@ -80,7 +80,13 @@ const Header = () => {
             </div>
           </div>
           <Link to="/">
-            <img src={pic} alt="" className="h-[290px] w-[260px]" />
+            {/* <div className="h-[390px] w-[300px] bg-green-50"> */}
+            <img
+              src={pic}
+              alt=""
+              className="h-[340px] w-[240px] lg:ml-0 -ml-6 lg:mt-0 mt-2"
+            />
+            {/* </div> */}
           </Link>
           <div className="lg:h-[60px] lg:w-[30%] w-[40%] flex justify-around items-center">
             <nav

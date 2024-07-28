@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const url: string = "https://storejam.onrender.com";
+// const url: string = "https://storejam.onrender.com";
+const url: string = "https://storejam1.onrender.com";
 
 export const createAdmin = async (data: any) => {
   try {
