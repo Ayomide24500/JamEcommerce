@@ -8,13 +8,18 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { FaRegCheckCircle, FaTrashAlt } from "react-icons/fa";
 import {
+  clearState,
   removeFromNotification,
-  toggleNotificationVisibility,
+  resetDailyData,
 } from "../../global/reduxState";
 import React from "react";
+import History from "./History";
+import NotifyMessage from "./NotifyMessage";
 
 const AdminDash = () => {
   const notifications = useSelector((state: any) => state.notifications);
+  // console.log("notifications", notifications);
+
   const totalSales = useSelector((state: any) => state.totalSales);
   const totalOrders = useSelector((state: any) => state.totalOrders);
   const totalCustomers = useSelector((state: any) => state.totalCustomers);
@@ -22,28 +27,32 @@ const AdminDash = () => {
     (state: any) => state.dailyConfirmations
   );
   const dispatch = useDispatch();
-  const isNotificationVisible = useSelector(
-    (state: any) => state.isNotificationVisible
-  );
 
   const [latestNotification, setLatestNotification] = useState<any>(null);
   const [notificationHistory, setNotificationHistory] = useState<any[]>([]);
 
   useEffect(() => {
     if (notifications.length > 0) {
-      setLatestNotification(notifications[notifications.length - 1]);
+      const latest = notifications[notifications.length - 1];
+      setLatestNotification(latest);
+      setNotificationHistory((prevHistory) => {
+        if (
+          !prevHistory.some((notification) => notification.id === latest.id)
+        ) {
+          return [...prevHistory, latest];
+        }
+        return prevHistory;
+      });
     }
   }, [notifications]);
 
+  // useEffect(() => {
+  //   dispatch(clearState());
+  // }, [dispatch]);
+
   useEffect(() => {
-    setNotificationHistory((prevHistory) => [
-      ...prevHistory,
-      ...notifications.filter(
-        (notification: any) =>
-          !prevHistory.some((hist: any) => hist.id === notification.id)
-      ),
-    ]);
-  }, [notifications]);
+    dispatch(resetDailyData());
+  }, [dispatch]);
 
   const handleRemoveNotification = (id: string) => {
     dispatch(removeFromNotification({ id }));
@@ -115,72 +124,29 @@ const AdminDash = () => {
         </div>
       </div>
 
-      {notifications.length > 0 && (
-        <div
-          id="notification-section"
-          className={`fixed bottom-4 right-4 bg-white p-4 text-[12px] rounded-lg shadow-lg transition-transform transform ${
-            isNotificationVisible ? "translate-y-0" : "translate-y-full"
-          }`}
-          style={{ transition: "transform 0.3s ease-out" }}
-        >
-          {latestNotification && (
-            <div>
-              <h4 className="font-bold mb-2">New Order Confirmation</h4>
-              <p className="mb-1">
-                User:{" "}
-                <span className="font-medium">
-                  {" "}
-                  {latestNotification.user?.data?.name}{" "}
-                </span>
-              </p>
-              <p className="mb-1">
-                Address: {latestNotification.user?.data.address}
-              </p>
-              <p className="mb-1">
-                Phone No: {latestNotification.user?.data.phone}
-              </p>
-              <p className="mb-1">Order Details:</p>
-              <ul>
-                {latestNotification.product &&
-                latestNotification.product.length > 0 ? (
-                  latestNotification.product.map((item: any) => (
-                    <li key={item.id}>
-                      {item.productName} - Quantity: {item.QTY}
-                    </li>
-                  ))
-                ) : (
-                  <li>No products found</li>
-                )}
-              </ul>
-              <button
-                onClick={() => handleRemoveNotification(latestNotification.id)}
-                className="text-red-600 mt-2 flex gap-3"
-              >
-                <FaTrashAlt />
-              </button>
-            </div>
-          )}
-        </div>
-      )}
+      <NotifyMessage />
 
       <div className="mt-6 p-4 bg-white rounded-lg shadow-lg overflow-y-auto ">
-        <h3 className="text-lg font-semibold mb-4">Notification History</h3>
+        <h3 className="text-[13px] font-semibold mb-4">
+          Present Notification History
+        </h3>
         <table className="w-full border-collapse">
           <thead>
             <tr className="text-left">
-              <th className="py-2 px-4">User</th>
-              <th className="py-2 px-4">Address</th>
-              <th className="py-2 px-4">Phone No</th>
-              <th className="py-2 px-4">Order Details</th>
-              <th className="py-2 px-4">Action</th>
+              <th className="py-2 px-4 text-[12px]">User</th>
+              <th className="py-2 px-4 text-[12px]">Address</th>
+              <th className="py-2 px-4 text-[12px]">Phone No</th>
+              <th className="py-2 px-4 text-[12px]">Order Details</th>
             </tr>
           </thead>
           <tbody className="text-[13px]">
-            {notificationHistory.map((notification) => (
+            {notificationHistory.map((notification: any) => (
               <tr key={notification.id}>
                 <td className="py-2 px-4">{notification.user?.data?.name}</td>
-                <td className="py-2 px-4">{notification.user?.data.address}</td>
-                <td className="py-2 px-4">{notification.user?.data.phone}</td>
+                <td className="py-2 px-4">
+                  {notification.user?.data?.address}
+                </td>
+                <td className="py-2 px-4">{notification.user?.data?.phone}</td>
                 <td className="py-2 px-4">
                   {notification.product
                     ? notification.product.map((item: any) => (
@@ -190,18 +156,14 @@ const AdminDash = () => {
                       ))
                     : "No products found"}
                 </td>
-                <td className="py-2 px-4">
-                  <button
-                    onClick={() => handleRemoveNotification(notification.id)}
-                    className="text-red-600"
-                  >
-                    <FaTrashAlt />
-                  </button>
-                </td>
               </tr>
             ))}
           </tbody>
         </table>
+      </div>
+
+      <div className="mt-6 p-4 bg-white rounded-lg shadow-lg">
+        <History />
       </div>
     </div>
   );

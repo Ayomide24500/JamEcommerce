@@ -1,8 +1,9 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { v4 as uuidv4 } from "uuid";
 
 const initialState = {
   user: null,
+  orders: [],
   products: [] as any,
   cart: [] as any,
   notifications: [] as any,
@@ -11,6 +12,8 @@ const initialState = {
   totalOrders: 0,
   totalCustomers: 0,
   dailyConfirmations: 0,
+  history: [],
+  lastResetTime: Date.now(),
 };
 
 const reduxState = createSlice({
@@ -34,8 +37,26 @@ const reduxState = createSlice({
         state.cart.push(payload);
       }
     },
-    removeFromCart: (state, { payload }) => {
-      state.cart = state.cart.filter((el: any) => el.id !== payload.id);
+    addHistory: (state, { payload }) => {
+      state.history.push(payload);
+    },
+    removeFromCart: (
+      state,
+      action: PayloadAction<{ id?: string; cart?: any }>
+    ) => {
+      if (action.payload.cart) {
+        state.cart = [];
+      } else if (action.payload.id) {
+        state.cart = state.cart.filter((item) => item.id !== action.payload.id);
+      }
+    },
+
+    removeFromProduct: (state, { payload }) => {
+      console.log(state.products);
+
+      state.products = state.products.filter(
+        (el: any) => el._id !== payload.id
+      );
     },
     removeFromNotification: (state, { payload }) => {
       state.notifications = state.notifications.filter(
@@ -59,8 +80,14 @@ const reduxState = createSlice({
     },
     clearState: (state) => {
       state.products = [];
-      state.cart = [];
+      state.user = null;
+      (state.totalSales = 0),
+        (state.totalCustomers = 0),
+        (state.dailyConfirmations = 0),
+        (state.totalOrders = 0),
+        (state.cart = []);
       state.notifications = [];
+      state.history = [];
     },
     notifyAdmin: (state, { payload }) => {
       state.notifications.push({ ...payload, id: uuidv4() });
@@ -85,16 +112,30 @@ const reduxState = createSlice({
       state.dailyConfirmations += 1;
     },
 
+    // resetDailyData: (state) => {
+    //   state.dailyConfirmations = 0;
+    // },
     resetDailyData: (state) => {
-      state.dailyConfirmations = 0;
+      const currentTime = Date.now();
+      const timeElapsed = currentTime - state.lastResetTime;
+
+      if (timeElapsed >= 24 * 60 * 60 * 1000) {
+        state.totalSales = 0;
+        state.totalOrders = 0;
+        state.totalCustomers = 0;
+        state.dailyConfirmations = 0;
+        state.lastResetTime = currentTime;
+      }
     },
   },
 });
 
 export const {
   loginUser,
+  addHistory,
   logOut,
   addProduct,
+  removeFromProduct,
   addCart,
   removeFromCart,
   increaseCartQTY,

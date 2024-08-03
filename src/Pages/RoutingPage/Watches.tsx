@@ -3,9 +3,12 @@ import { getStore } from "../../api/Admin";
 import ProductCard from "../../components/ProductCard";
 import { Product } from "../../components/interface";
 import { BounceLoader } from "react-spinners";
+import { useSelector } from "react-redux";
 
 const Watches: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
+  const products = useSelector((state: any) => state.products);
+
   const [data, setData] = useState<Product[]>([]);
   const [error, setError] = useState<string | null>(null);
 
@@ -37,13 +40,13 @@ const Watches: React.FC = () => {
     );
   if (error) return <div>{error}</div>;
 
-  const filteredProducts = data.filter(
+  const filteredProducts = products.filter(
     (product) => product.category === "Watches"
   );
 
   return (
-    <div className="w-full min-h-[100vh] p-4">
-      <div className="grid w-full min-h-[100vh] gap-4 lg:grid-cols-3 sm:grid-cols-1 md:grid-cols-3">
+    <div className="w-full min-h-[100%] p-4">
+      <div className="grid w-full h-[100%] gap-4 lg:grid-cols-4 sm:grid-cols-1 md:grid-cols-3">
         {filteredProducts.length > 0 ? (
           filteredProducts.map((product: any) => (
             <ProductCard

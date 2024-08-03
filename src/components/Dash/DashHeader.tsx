@@ -5,7 +5,7 @@ import AddProductForm from "../../Pages/Cart/AddProduct";
 import { FaHome } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleNotificationVisibility } from "../../global/reduxState"; // Update this import to match your action
+import { toggleNotificationVisibility } from "../../global/reduxState";
 
 const DashHeader = () => {
   const [store, setStore] = useState(false);
@@ -32,20 +32,20 @@ const DashHeader = () => {
         <Link to="/">
           <FaHome className="mr-2" />
         </Link>
-        <div className="flex items-center lg:w-[50%] w-[40%]">
+        {/* <div className="flex items-center lg:w-[50%] w-[40%]">
           <input
             type="text"
             className="border p-2 rounded outline-none border-none text-[12px]"
             placeholder="Search..."
           />
-        </div>
+        </div> */}
         <div className="flex items-center justify-center h-[40px] lg:w-[30%] w-[60%]">
           <div className="lg:w-[50%] h-[20%] lg:h-[80%] flex justify-center items-center">
             <p
               className="font-semibold flex items-center lg:text-[14px] text-[10px] lg:pl-0 pt-3 cursor-pointer"
               onClick={handleStore}
             >
-              <MdAdd className="lg:mr-2 mr-1" />
+              <MdAdd className="lg:mr-2 mr-1 text-[10px]" />
               Add To Store
             </p>
           </div>

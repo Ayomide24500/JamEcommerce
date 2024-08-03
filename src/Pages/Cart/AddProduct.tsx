@@ -4,6 +4,7 @@ import { addProduct } from "../../global/reduxState";
 import "../../index.css";
 import { CreateStore } from "../../api/Admin";
 import { toast, Toaster } from "react-hot-toast";
+import { FaSpinner } from "react-icons/fa";
 
 const AddProductForm = () => {
   const [product, setProduct]: any = useState({
@@ -16,6 +17,7 @@ const AddProductForm = () => {
   });
 
   const [formVisible, setFormVisible] = useState(true);
+  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
 
   const handleChange = (e: any) => {
@@ -33,6 +35,7 @@ const AddProductForm = () => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
+    setLoading(true);
 
     const formData = new FormData();
     formData.append("productName", product.productName);
@@ -49,6 +52,7 @@ const AddProductForm = () => {
 
     try {
       const result = await CreateStore(formData);
+
       console.log(result?.data);
 
       if (result?.data) {
@@ -60,6 +64,8 @@ const AddProductForm = () => {
       }
     } catch (error) {
       toast.error("Failed to create product.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -115,9 +121,13 @@ const AddProductForm = () => {
           />
           <button
             type="submit"
-            className="bg-black text-white h-[50px] w-full mt-4"
+            className="bg-black text-white h-[50px] w-full mt-4 flex justify-center items-center"
           >
-            Add Product
+            {loading ? (
+              <FaSpinner className="animate-spin text-white text-sm" /> // Small spinner icon
+            ) : (
+              "Add Product"
+            )}
           </button>
         </form>
       </div>

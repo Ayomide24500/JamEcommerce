@@ -8,7 +8,6 @@ import { createUser } from "../../api/userApi";
 import CheckoutModal from "./CheckoutModal";
 import { useDispatch } from "react-redux";
 import { addUser } from "../../global/reduxState";
-import React from "react";
 
 const SlideDownComponent = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -37,7 +36,7 @@ const SlideDownComponent = () => {
 
       if (res && res?.data) {
         dispatch(addUser(res?.data || res));
-        toast.success("Registration successful");
+        toast.success("Registration successfull");
       } else {
         setErrorMessage("Failed to register. Please try again.");
       }
