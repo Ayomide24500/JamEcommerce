@@ -1,4 +1,3 @@
-// Login.js
 import { useState } from "react";
 import { LoginAdmin } from "../../api/Admin";
 import { Toaster, toast } from "react-hot-toast";
@@ -10,11 +9,13 @@ const Login = () => {
   const navigate = useNavigate();
   const { login } = useAuth();
   const [token, setToken] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
   const [email, setEmail] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleSubmiteNow = (e: any) => {
     e.preventDefault();
+    setLoading(true);
 
     LoginAdmin({
       email,
@@ -24,7 +25,6 @@ const Login = () => {
         if (res?.data?.message === "welcome back") {
           toast.success("Login successful!");
           login(res?.data?.name);
-
           navigate("/dashboard");
         } else if (res?.data?.message === "Error reading your admin token ID") {
           setErrorMessage("Failed to login. Please go and verify.");
@@ -35,6 +35,9 @@ const Login = () => {
       .catch((err) => {
         console.log(err);
         setErrorMessage("An error occurred. Please try again.");
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
 
@@ -74,10 +77,15 @@ const Login = () => {
             <div className="mb-4 text-red-600">{errorMessage}</div>
           )}
           <button
-            className="bg-black text-white h-[50px] w-full mt-4"
+            className="bg-black text-white h-[50px] w-full mt-4 flex justify-center items-center"
             type="submit"
+            disabled={loading}
           >
-            Submit
+            {loading ? (
+              <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-white"></div>
+            ) : (
+              "Submit"
+            )}
           </button>
         </form>
 
