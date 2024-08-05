@@ -43,7 +43,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   }, []);
 
   return (
-    <div className="lg:h-[380px] min-h-[300px] lg:w-[70%] w-full flex flex-col justify-center items-center lg:mt-0 md:mt-2 mt-12">
+    <div className="lg:h-[380px] min-h-[300px] lg:w-[70%] w-full flex flex-col justify-center items-center lg:mt-0 md:mt-2 mt-10">
       <div className="w-full h-full bg-[#f0f0f0] flex flex-col">
         <div className="text-end text-[12px] pr-3 pt-2">
           {sold ? "SOLD" : ""}
@@ -68,7 +68,11 @@ const ProductCard: React.FC<ProductCardProps> = ({
           {"⭐".repeat(rating)}{" "}
           {rating > 0 && <span className="text-gray-400">({rating})</span>}
         </p>
-        <p>{price} ₦</p>
+        <div className="flex justify-center items-center w-full">
+          <p>
+            {price} <span className="text-lg sm:text-base">₦</span>
+          </p>
+        </div>
       </div>
       <Detail
         isOpen={isModalOpen}
