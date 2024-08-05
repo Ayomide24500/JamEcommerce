@@ -40,7 +40,7 @@ const Watches: React.FC = () => {
     );
   if (error) return <div>{error}</div>;
 
-  const filteredProducts = products.filter(
+  const filteredProducts = data.filter(
     (product) => product.category === "Watches"
   );
 

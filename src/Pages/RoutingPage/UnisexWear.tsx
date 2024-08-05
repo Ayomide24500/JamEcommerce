@@ -3,11 +3,13 @@ import { getStore } from "../../api/Admin";
 import ProductCard from "../../components/ProductCard";
 import { Product } from "../../components/interface";
 import { BounceLoader } from "react-spinners";
+import { useSelector } from "react-redux";
 
 const UnisexWear: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [data, setData] = useState<Product[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const products = useSelector((state: any) => state.products);
 
   useEffect(() => {
     const fetchProducts = async () => {

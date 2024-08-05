@@ -50,7 +50,7 @@ const All: React.FC = () => {
   return (
     <div className="w-full min-h-[100%] p-4">
       <div className="grid w-full h-[100%] gap-4 lg:grid-cols-4 sm:grid-cols-1 md:grid-cols-3">
-        {products.length === 0 ? (
+        {data.length === 0 ? (
           <div>No product found</div>
         ) : (
           products.map((product: any) => (
