@@ -46,7 +46,7 @@ const ShoesAndBags: React.FC = () => {
 
   return (
     <div className="w-full min-h-[100%] p-4">
-      <div className="grid w-full h-[100%] gap-4 lg:grid-cols-4 sm:grid-cols-1 md:grid-cols-3">
+      <div className="grid w-full h-[100%] lg:gap-4 lg:grid-cols-4 sm:grid-cols-1 md:grid-cols-3 gap-10">
         {filteredProducts.length > 0 ? (
           filteredProducts.map((product: any) => (
             <ProductCard

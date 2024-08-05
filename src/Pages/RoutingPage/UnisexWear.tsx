@@ -45,7 +45,7 @@ const UnisexWear: React.FC = () => {
 
   return (
     <div className="w-full min-h-[100vh] p-4">
-      <div className="grid w-full min-h-[100vh] gap-4 lg:grid-cols-3 sm:grid-cols-1 md:grid-cols-3">
+      <div className="grid w-full h-[100%] lg:gap-4 lg:grid-cols-4 sm:grid-cols-1 md:grid-cols-3 gap-10">
         {filteredProducts.length > 0 ? (
           filteredProducts.map((product: any) => (
             <ProductCard
