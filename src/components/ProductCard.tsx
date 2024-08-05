@@ -43,7 +43,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   }, []);
 
   return (
-    <div className="h-[380px] lg:w-[70%] w-full flex flex-col justify-center items-center">
+    <div className="lg:h-[380px] h-[300px] lg:w-[70%] w-full flex flex-col justify-center items-center lg:mt-0 md:mt-2 mt-12">
       <div className="w-full h-full bg-[#f0f0f0] flex flex-col">
         <div className="text-end text-[12px] pr-3 pt-2">
           {sold ? "SOLD" : ""}
