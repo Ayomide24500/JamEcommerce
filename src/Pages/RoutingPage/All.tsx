@@ -16,14 +16,10 @@ const All: React.FC = () => {
       try {
         const response = await getStore();
         console.log("API Response:", response);
-        if (response && response.data) {
-          setData(response.data);
-        } else {
-          setError("No data received from API");
-        }
+        setData(response.data);
+        setLoading(false);
       } catch (error: any) {
         setError(error.message || "Failed to fetch products.");
-      } finally {
         setLoading(false);
       }
     };
@@ -50,10 +46,10 @@ const All: React.FC = () => {
   return (
     <div className="w-full min-h-[100%] p-4">
       <div className="grid w-full h-[100%] gap-4 lg:grid-cols-4 sm:grid-cols-1 md:grid-cols-3">
-        {data.length === 0 ? (
+        {data?.length === 0 ? (
           <div>No product found</div>
         ) : (
-          products.map((product: any) => (
+          data.map((product: any) => (
             <ProductCard
               key={product._id}
               productName={product.productName || "Unknown Name"}
