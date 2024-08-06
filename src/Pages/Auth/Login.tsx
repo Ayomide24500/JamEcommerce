@@ -4,12 +4,14 @@ import { Toaster, toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hook/useAuth";
 import React from "react";
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 
 const Login = () => {
   const navigate = useNavigate();
   const { login } = useAuth();
-  const [token, setToken] = useState("");
   const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -19,17 +21,15 @@ const Login = () => {
 
     LoginAdmin({
       email,
-      token,
+      password,
     })
       .then((res) => {
         if (res?.data?.message === "welcome back") {
           toast.success("Login successful!");
           login(res?.data?.name);
           navigate("/dashboard");
-        } else if (res?.data?.message === "Error reading your admin token ID") {
-          setErrorMessage("Failed to login. Please go and verify.");
         } else {
-          setErrorMessage("Invalid email or token. Please try again.");
+          setErrorMessage("Invalid email or password. Please try again.");
         }
       })
       .catch((err) => {
@@ -57,13 +57,21 @@ const Login = () => {
             onChange={handleInputChange(setEmail)}
             className="border-gray-300 border h-[40px] lg:h-[50px] w-full outline-none px-3"
           />
-          <input
-            type="text"
-            placeholder="Token"
-            value={token}
-            onChange={handleInputChange(setToken)}
-            className="border-gray-300 border h-[40px] lg:h-[50px] w-full outline-none px-3"
-          />
+          <div className="relative">
+            <input
+              type={showPassword ? "text" : "password"}
+              placeholder="Password"
+              value={password}
+              onChange={handleInputChange(setPassword)}
+              className="border-gray-300 border h-[40px] lg:h-[50px] w-full outline-none px-3 pr-10"
+            />
+            <div
+              className="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer"
+              onClick={() => setShowPassword((prev) => !prev)}
+            >
+              {showPassword ? <AiFillEyeInvisible /> : <AiFillEye />}
+            </div>
+          </div>
           <div className="flex justify-between items-center">
             <label className="flex items-center text-[12px]">
               <input type="checkbox" className="mr-2" />

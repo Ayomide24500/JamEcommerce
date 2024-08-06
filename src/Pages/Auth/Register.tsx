@@ -1,38 +1,36 @@
-import { useEffect, useState } from "react";
-import { createAdmin, verifyAdmin } from "../../api/Admin";
+import { useState } from "react";
+import { createAdmin } from "../../api/Admin";
 import { Toaster, toast } from "react-hot-toast";
-import Login from "./Login";
 import { Link } from "react-router-dom";
 import React from "react";
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+import Login from "./Login";
 
 const AuthForm = () => {
   const [isRegister, setIsRegister] = useState(false);
   const [isVerify, setIsVerify] = useState(false);
   const [firstName, setFirstName] = useState("");
-  const [token] = useState("");
-  const [verify] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleSubmiteNow = async (e: any) => {
     e.preventDefault();
+    setLoading(true);
 
     try {
       const res = await createAdmin({
-        email,
-        token,
-        verify,
         firstName,
         lastName,
+        email,
+        password,
       });
 
-      // const VerifyAdmin = (res: any) => {
-
-      // };
-
       if (res && res?.data?.data?.verify === false) {
-        toast.success("Registration successful but not verify!");
+        toast.success("Registration successful but not verified!");
         setIsVerify(true);
       } else {
         setErrorMessage("Failed to register. Please try again.");
@@ -40,6 +38,8 @@ const AuthForm = () => {
     } catch (err) {
       console.log(err);
       setErrorMessage("An error occurred. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -116,6 +116,21 @@ const AuthForm = () => {
               onChange={handleInputChange(setLastName)}
               className="border-gray-300 border h-[50px] w-full outline-none px-3"
             />
+            <div className="relative">
+              <input
+                type={showPassword ? "text" : "password"} // Toggle input type based on showPassword state
+                placeholder="Password"
+                value={password}
+                onChange={handleInputChange(setPassword)}
+                className="border-gray-300 border h-[50px] w-full outline-none px-3 pr-10"
+              />
+              <div
+                className="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer"
+                onClick={() => setShowPassword((prev) => !prev)} // Toggle showPassword state
+              >
+                {showPassword ? <AiFillEyeInvisible /> : <AiFillEye />}
+              </div>
+            </div>
             <div className="flex justify-between items-center">
               <label className="flex items-center text-[12px]">
                 <input type="checkbox" className="mr-2" />
@@ -128,8 +143,16 @@ const AuthForm = () => {
             {errorMessage && (
               <div className="mb-4 text-red-600">{errorMessage}</div>
             )}
-            <button className="bg-black text-white h-[50px] w-full mt-4">
-              Submit
+            <button
+              className="bg-black text-white h-[50px] w-full mt-4 flex justify-center items-center"
+              type="submit"
+              disabled={loading}
+            >
+              {loading ? (
+                <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-white"></div>
+              ) : (
+                "Submit"
+              )}
             </button>
           </form>
           <div className="text-[12px]">
