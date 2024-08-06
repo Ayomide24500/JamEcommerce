@@ -49,7 +49,7 @@ const AuthForm = () => {
   };
 
   return (
-    <div className="lg:w-full min-h-[390px] relative overflow-hidden mt-6">
+    <div className="lg:w-full min-h-[420px] relative overflow-hidden mt-6">
       <div>
         <p className="text-[10px] pb-3 text-red-600">
           Only Admin Register this page
@@ -100,33 +100,33 @@ const AuthForm = () => {
               placeholder="Email"
               value={email}
               onChange={handleInputChange(setEmail)}
-              className="border-gray-300 border h-[50px] w-full outline-none px-3"
+              className="border-gray-300 border h-[35px] w-full outline-none px-3"
             />
             <input
               type="text"
               placeholder="First Name"
               value={firstName}
               onChange={handleInputChange(setFirstName)}
-              className="border-gray-300 border h-[50px] w-full outline-none px-3"
+              className="border-gray-300 border h-[35px] w-full outline-none px-3"
             />
             <input
               type="text"
               placeholder="Last Name"
               value={lastName}
               onChange={handleInputChange(setLastName)}
-              className="border-gray-300 border h-[50px] w-full outline-none px-3"
+              className="border-gray-300 border h-[35px] w-full outline-none px-3"
             />
             <div className="relative">
               <input
-                type={showPassword ? "text" : "password"} // Toggle input type based on showPassword state
+                type={showPassword ? "text" : "password"}
                 placeholder="Password"
                 value={password}
                 onChange={handleInputChange(setPassword)}
-                className="border-gray-300 border h-[50px] w-full outline-none px-3 pr-10"
+                className="border-gray-300 border h-[35px] w-full outline-none px-3 pr-10"
               />
               <div
                 className="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer"
-                onClick={() => setShowPassword((prev) => !prev)} // Toggle showPassword state
+                onClick={() => setShowPassword((prev) => !prev)}
               >
                 {showPassword ? <AiFillEyeInvisible /> : <AiFillEye />}
               </div>
@@ -149,7 +149,7 @@ const AuthForm = () => {
               disabled={loading}
             >
               {loading ? (
-                <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-white"></div>
+                <div className="animate-spin rounded-full py-2 px-2 border-t-2 border-white"></div>
               ) : (
                 "Submit"
               )}
