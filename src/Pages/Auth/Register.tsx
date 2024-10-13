@@ -116,21 +116,6 @@ const AuthForm = () => {
               onChange={handleInputChange(setLastName)}
               className="border-gray-300 border h-[35px] w-full outline-none px-3"
             />
-            <div className="relative">
-              <input
-                type={showPassword ? "text" : "password"}
-                placeholder="Password"
-                value={password}
-                onChange={handleInputChange(setPassword)}
-                className="border-gray-300 border h-[35px] w-full outline-none px-3 pr-10"
-              />
-              <div
-                className="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer"
-                onClick={() => setShowPassword((prev) => !prev)}
-              >
-                {showPassword ? <AiFillEyeInvisible /> : <AiFillEye />}
-              </div>
-            </div>
             <div className="flex justify-between items-center">
               <label className="flex items-center text-[12px]">
                 <input type="checkbox" className="mr-2" />
