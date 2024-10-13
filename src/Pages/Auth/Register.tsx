@@ -12,7 +12,6 @@ const AuthForm = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
@@ -26,7 +25,6 @@ const AuthForm = () => {
         firstName,
         lastName,
         email,
-        password,
       });
 
       if (res && res?.data?.data?.verify === false) {
