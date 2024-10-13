@@ -24,9 +24,9 @@ const Login = () => {
       token,
     })
       .then((res) => {
-        if (res?.data?.message === "welcome back") {
+        if (res?.data === "welcome back") {
           toast.success("Login successful!");
-          login(res?.data?.name);
+          // login(res?.data?.name);
           navigate("/dashboard");
         } else {
           setErrorMessage("Invalid email or password. Please try again.");
