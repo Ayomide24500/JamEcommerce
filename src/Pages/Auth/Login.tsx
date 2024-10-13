@@ -59,8 +59,8 @@ const Login = () => {
           />
           <div className="relative">
             <input
-              type={showPassword ? "text" : "password"}
-              placeholder="Password"
+              type={showPassword ? "text" : "token"}
+              placeholder="token"
               value={token}
               onChange={handleInputChange(setToken)}
               className="border-gray-300 border h-[40px] lg:h-[50px] w-full outline-none px-3 pr-10"
