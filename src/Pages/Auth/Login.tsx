@@ -24,7 +24,7 @@ const Login = () => {
       token,
     })
       .then((res) => {
-        if (res?.data === "welcome back") {
+        if (res?.data?.message === "welcome back") {
           toast.success("Login successful!");
           // login(res?.data?.name);
           navigate("/dashboard");
