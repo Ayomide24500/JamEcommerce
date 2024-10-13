@@ -10,7 +10,7 @@ const Login = () => {
   const navigate = useNavigate();
   const { login } = useAuth();
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [token, setToken] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
@@ -21,7 +21,7 @@ const Login = () => {
 
     LoginAdmin({
       email,
-      password,
+      token,
     })
       .then((res) => {
         if (res?.data?.message === "welcome back") {
@@ -61,8 +61,8 @@ const Login = () => {
             <input
               type={showPassword ? "text" : "password"}
               placeholder="Password"
-              value={password}
-              onChange={handleInputChange(setPassword)}
+              value={token}
+              onChange={handleInputChange(setToken)}
               className="border-gray-300 border h-[40px] lg:h-[50px] w-full outline-none px-3 pr-10"
             />
             <div
