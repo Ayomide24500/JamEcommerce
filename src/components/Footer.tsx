@@ -1,48 +1,61 @@
-import { FaFacebookF, FaTwitter, FaInstagram } from "react-icons/fa";
+import { FaFacebookF, FaTwitter, FaInstagram, FaPhoneAlt, FaEnvelope } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <div className="w-full h-auto bg-gray-100 flex justify-center items-center py-8">
-      <div className="container w-[90%] flex flex-col md:flex-row items-center justify-between px-4">
-        <div className="text-center md:text-left mb-4 md:mb-0">
-          <h1 className="lg:text-xl text-[13px] font-bold">
-            Jam Jam Collections
-          </h1>
-          <p className="lg:text-[14px] mt-2 text-[12px]">
-            © 2024 Jam Jam Collections. All rights reserved.
-          </p>
+    <footer className="bg-gray-800 text-white py-8">
+      <div className="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
+        {/* Logo & Copyright */}
+        <div className="text-center md:text-left mb-6 md:mb-0">
+          <h1 className="text-xl font-bold">Jam Jam Collections</h1>
+          <p className="text-sm mt-2">© 2024 Jam Jam Collections. All rights reserved.</p>
         </div>
-        <div className="flex space-x-4 mb-4 md:mb-0 text-[10px]">
-          <a href="#" className="hover:text-gray-500 text-[10px]">
+
+        {/* Contact Info */}
+        <div className="flex flex-col items-center md:items-start mb-6 md:mb-0">
+          <div className="flex items-center space-x-2 text-sm">
+            <FaPhoneAlt />
+            <span>+1 (123) 456-7890</span>
+          </div>
+          <div className="flex items-center space-x-2 text-sm mt-2">
+            <FaEnvelope />
+            <span>info@jamjamcollections.com</span>
+          </div>
+        </div>
+
+        {/* Links */}
+        <div className="flex space-x-6 mb-6 md:mb-0">
+          <a href="#" className="hover:text-gray-400 text-sm">
             Privacy Policy
           </a>
-          <a href="#" className="hover:text-gray-500 text-[10px]">
+          <a href="#" className="hover:text-gray-400 text-sm">
             Terms of Service
           </a>
-          <a href="#" className="hover:text-gray-500 text-[10px]">
+          <a href="#" className="hover:text-gray-400 text-sm">
             Contact
           </a>
         </div>
+
+        {/* Social Media Icons */}
         <div className="text-center md:text-right">
-          <p className="text-[10px]">Follow us:</p>
-          <div className="flex justify-center md:justify-end space-x-4 mt-2">
+          <p className="text-sm mb-2">Follow us:</p>
+          <div className="flex justify-center md:justify-end space-x-4">
             <Link
               to="https://www.fb.com/l/6lp1kJRRR"
-              className="hover:text-gray-500 text-sm"
+              className="hover:text-gray-400 text-lg"
             >
               <FaFacebookF />
             </Link>
-            <a href="#" className="hover:text-gray-500 text-sm">
+            <a href="#" className="hover:text-gray-400 text-lg">
               <FaTwitter />
             </a>
-            <a href="#" className="hover:text-gray-500 text-sm">
+            <a href="#" className="hover:text-gray-400 text-lg">
               <FaInstagram />
             </a>
           </div>
         </div>
       </div>
-    </div>
+    </footer>
   );
 };
 
