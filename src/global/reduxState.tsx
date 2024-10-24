@@ -47,7 +47,9 @@ const reduxState = createSlice({
       if (action.payload.cart) {
         state.cart = [];
       } else if (action.payload.id) {
-        state.cart = state.cart.filter((item) => item.id !== action.payload.id);
+        state.cart = state.cart.filter(
+          (item: any) => item.id !== action.payload.id
+        );
       }
     },
 

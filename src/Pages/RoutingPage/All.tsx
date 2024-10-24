@@ -7,9 +7,11 @@ import { useSelector } from "react-redux";
 
 const All: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
-  const products = useSelector((state: any) => state.products);
+  const products = useSelector((state: any) => state.products || []);
   const [data, setData] = useState<Product[]>([]);
   const [error, setError] = useState<string | null>(null);
+
+  // console.log(data);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -31,13 +33,13 @@ const All: React.FC = () => {
     console.log("Quick look:", product);
   };
 
-  // if (loading) {
-  //   return (
-  //     <div className="flex justify-center items-center h-full">
-  //       <BounceLoader color="gray" size={30} />
-  //     </div>
-  //   );
-  // }
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-full">
+        <BounceLoader color="gray" size={30} />
+      </div>
+    );
+  }
 
   if (error) {
     return <div>{error}</div>;
@@ -46,10 +48,10 @@ const All: React.FC = () => {
   return (
     <div className="w-full min-h-[100%] p-4">
       <div className="grid w-full h-[100%] lg:gap-4 lg:grid-cols-4 sm:grid-cols-1 md:grid-cols-3 gap-10">
-        {data?.length === 0 ? (
+        {products.length === 0 ? (
           <div>No product found</div>
         ) : (
-          data.map((product: any) => (
+          products.map((product: any) => (
             <ProductCard
               key={product._id}
               productName={product.productName || "Unknown Name"}

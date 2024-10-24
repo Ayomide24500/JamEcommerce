@@ -19,7 +19,6 @@ const CartPage: React.FC = () => {
   );
 
   console.log(product);
-
   if (!product) {
     return <div>Product not found</div>;
   }

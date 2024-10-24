@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addProduct } from "../../global/reduxState";
 import "../../index.css";
@@ -124,7 +124,7 @@ const AddProductForm = () => {
             className="bg-black text-white h-[50px] w-full mt-4 flex justify-center items-center"
           >
             {loading ? (
-              <FaSpinner className="animate-spin text-white text-sm" /> // Small spinner icon
+              <FaSpinner className="animate-spin text-white text-sm" />
             ) : (
               "Add Product"
             )}

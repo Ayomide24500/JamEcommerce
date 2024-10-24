@@ -10,6 +10,7 @@ import pic3 from "../../assets/shoe2.png";
 import Watches from "../RoutingPage/Watches";
 import UnisexWear from "../RoutingPage/UnisexWear";
 import ShoesAndBags from "../RoutingPage/ShoesAndBags";
+import "../../index.css";
 import All from "../RoutingPage/All";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import "../../index.css";
@@ -53,7 +54,7 @@ const Homepage = () => {
   };
 
   return (
-    <div className="w-full min-h-[100vh] flex justify-center items-center flex-col lg:gap-6">
+    <div className="w-full min-h-[100vh] flex justify-center items-center flex-col lg:gap-6 appear">
       <div className="w-[90%] min-h-full">
         <div className="w-full flex justify-center items-center">
           <div className="w-[85%] h-[500px] lg:h-[610px] bg-[#f3f4f6]">
