@@ -268,3 +268,99 @@
 .appear {
   animation: appear 750ms ease-in-out;
 }
+
+/* Dropdown Container */
+.dropdown-container {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Button */
+.dropdown-button {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 10px 16px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  transition: background-color 0.2s ease;
+}
+
+.dropdown-button:hover {
+  background-color: #f9f9f9;
+}
+
+/* Icon Style */
+.dropdown-icon {
+  margin-left: 8px;
+  font-size: 16px;
+  transition: transform 0.3s ease;
+}
+
+/* Dropdown Content */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #ffffff;
+  min-width: 180px;
+  padding: 10px 0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+  z-index: 10;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Show Dropdown */
+.dropdown-container.open .dropdown-content {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Dropdown Items */
+.dropdown-item {
+  padding: 8px 16px;
+  cursor: pointer;
+  color: #333;
+  transition: background-color 0.2s ease;
+}
+
+.dropdown-item:hover {
+  background-color: #f1f1f1;
+}
+/* Add these styles to your CSS file */
+.dropdown-container {
+  position: relative;
+}
+
+.dropdown-content {
+  transition: all 0.3s ease;
+}
+
+.dropdown-button:hover {
+  background: #f3f3f3;
+}
+
+/* Smooth rotate effect for dropdown icon */
+.dropdown-icon {
+  transition: transform 0.3s ease;
+}
+
+/* Fade-in and fade-out for transitions */
+.fade-enter {
+  opacity: 0;
+}
+.fade-enter-active {
+  opacity: 1;
+  transition: opacity 600ms;
+}
+.fade-exit {
+  opacity: 1;
+}
+.fade-exit-active {
+  opacity: 0;
+  transition: opacity 600ms;
+}

@@ -1,4 +1,3 @@
-// components/Homepage.js
 import { useState } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -10,11 +9,13 @@ import pic3 from "../../assets/shoe2.png";
 import Watches from "../RoutingPage/Watches";
 import UnisexWear from "../RoutingPage/UnisexWear";
 import ShoesAndBags from "../RoutingPage/ShoesAndBags";
-import "../../index.css";
 import All from "../RoutingPage/All";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import "../../index.css";
-import React from "react";
+import { FaChevronDown } from "react-icons/fa";
+import WelcomePage from "./WelcomePage";
+import Belt from "../RoutingPage/Belt";
+import BaggyJeans from "../RoutingPage/BaggyJeans";
 
 const slides = [
   { text: "Discover Timeless Elegance", image: pic },
@@ -39,6 +40,17 @@ const settings = {
 const Homepage = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [selectedCategory, setSelectedCategory] = useState("All");
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [showWelcome, setShowWelcome] = useState(true);
+
+  const handleCloseWelcome = () => {
+    setShowWelcome(false);
+  };
+
+  const handleCategorySelect = (category) => {
+    setSelectedCategory(category);
+    setDropdownOpen(false);
+  };
 
   const renderComponent = () => {
     switch (selectedCategory) {
@@ -48,6 +60,10 @@ const Homepage = () => {
         return <UnisexWear />;
       case "Shoes And Bags":
         return <ShoesAndBags />;
+      case "Baggy Jeans":
+        return <BaggyJeans />;
+      case "Belt":
+        return <Belt />;
       default:
         return <All />;
     }
@@ -55,6 +71,7 @@ const Homepage = () => {
 
   return (
     <div className="w-full min-h-[100vh] flex justify-center items-center flex-col lg:gap-6 appear">
+      {showWelcome && <WelcomePage onClose={handleCloseWelcome} />}
       <div className="w-[90%] min-h-full">
         <div className="w-full flex justify-center items-center">
           <div className="w-[85%] h-[500px] lg:h-[610px] bg-[#f3f4f6]">
@@ -71,7 +88,7 @@ const Homepage = () => {
                         currentSlide === index ? "slide-in" : ""
                       }`}
                     >
-                      <h2 className="lg:text-4xl text-[15px] text-center font-bold text-gray-700 lg:pl-0  pl-3">
+                      <h2 className="lg:text-4xl text-[15px] text-center font-bold text-gray-700 lg:pl-0 pl-3">
                         <span className="text-gray-700">
                           {slide.text.substring(
                             0,
@@ -99,32 +116,59 @@ const Homepage = () => {
           </div>
         </div>
         <div className="w-full max-h-full lg:mt-9">
-          <div className="h-[90px] w-full lg:flex lg:justify-between lg:items-center">
-            <div className="w-[60%] h-[80%] lg:flex justify-around items-center hidden">
-              <p
-                className="cursor-pointer"
-                onClick={() => setSelectedCategory("All")}
-              >
-                All
-              </p>
-              <p
-                className="cursor-pointer"
-                onClick={() => setSelectedCategory("Watches")}
-              >
-                Watches
-              </p>
-              <p
-                className="cursor-pointer"
-                onClick={() => setSelectedCategory("Unisex Wear")}
-              >
-                Unisex Wear
-              </p>
-              <p
-                className="cursor-pointer"
-                onClick={() => setSelectedCategory("Shoes And Bags")}
-              >
-                Shoes and Bags
-              </p>
+          <div className="h-[90px] w-full flex justify-center items-center">
+            <div
+              className={`dropdown-container ${dropdownOpen ? "open" : ""}`}
+              onClick={() => setDropdownOpen(!dropdownOpen)}
+            >
+              <div className="dropdown-button flex items-center justify-between bg-gray-100 py-2 px-4 rounded-lg shadow-md w-40 sm:w-48 cursor-pointer">
+                <p className="text-sm sm:text-base">{selectedCategory}</p>
+                <FaChevronDown
+                  className={`dropdown-icon transition-transform duration-300 ${
+                    dropdownOpen ? "rotate-180" : "rotate-0"
+                  }`}
+                />
+              </div>
+              {dropdownOpen && (
+                <div className="dropdown-content absolute mt-2 bg-white shadow-lg rounded-md w-40 sm:w-48 z-10">
+                  <div
+                    className="dropdown-item py-2 px-4 hover:bg-gray-200 cursor-pointer text-sm sm:text-base sm:text-[13px]"
+                    onClick={() => handleCategorySelect("All")}
+                  >
+                    All
+                  </div>
+                  <div
+                    className="dropdown-item py-2 px-4 hover:bg-gray-200 cursor-pointer text-sm sm:text-base sm:text-[13px]"
+                    onClick={() => handleCategorySelect("Watches")}
+                  >
+                    Watches
+                  </div>
+                  <div
+                    className="dropdown-item py-2 px-4 hover:bg-gray-200 cursor-pointer text-sm sm:text-base sm:text-[13px]"
+                    onClick={() => handleCategorySelect("Unisex Wear")}
+                  >
+                    Unisex Wear
+                  </div>
+                  <div
+                    className="dropdown-item py-2 px-4 hover:bg-gray-200 cursor-pointer text-sm sm:text-base sm:text-[13px]"
+                    onClick={() => handleCategorySelect("Belt")}
+                  >
+                    Belt
+                  </div>
+                  <div
+                    className="dropdown-item py-2 px-4 hover:bg-gray-200 cursor-pointer text-sm sm:text-base sm:text-[13px]"
+                    onClick={() => handleCategorySelect("Baggy Jeans")}
+                  >
+                    Baggy Jeans
+                  </div>
+                  <div
+                    className="dropdown-item py-2 px-4 hover:bg-gray-200 cursor-pointer text-sm sm:text-base sm:text-[13px]"
+                    onClick={() => handleCategorySelect("Shoes And Bags")}
+                  >
+                    Shoes and Bags
+                  </div>
+                </div>
+              )}
             </div>
           </div>
           <div className="p-4">
