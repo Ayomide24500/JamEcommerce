@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -42,6 +42,15 @@ const Homepage = () => {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [showWelcome, setShowWelcome] = useState(true);
+
+  useEffect(() => {
+    const hasShownWelcome = localStorage.getItem("hasShownWelcome");
+
+    if (!hasShownWelcome) {
+      setShowWelcome(true);
+      localStorage.setItem("hasShownWelcome", "true");
+    }
+  }, []);
 
   const handleCloseWelcome = () => {
     setShowWelcome(false);
@@ -122,7 +131,9 @@ const Homepage = () => {
               onClick={() => setDropdownOpen(!dropdownOpen)}
             >
               <div className="dropdown-button flex items-center justify-between bg-gray-100 py-2 px-4 rounded-lg shadow-md w-40 sm:w-48 cursor-pointer">
-                <p className="text-sm sm:text-base">{selectedCategory}</p>
+                <p className="lg:text-sm lg:text-base text-[12px]">
+                  {selectedCategory}
+                </p>
                 <FaChevronDown
                   className={`dropdown-icon transition-transform duration-300 ${
                     dropdownOpen ? "rotate-180" : "rotate-0"
@@ -132,37 +143,37 @@ const Homepage = () => {
               {dropdownOpen && (
                 <div className="dropdown-content absolute mt-2 bg-white shadow-lg rounded-md w-40 sm:w-48 z-10">
                   <div
-                    className="dropdown-item py-2 px-4 hover:bg-gray-200 cursor-pointer text-sm sm:text-base sm:text-[13px]"
+                    className="dropdown-item py-2 px-4 hover:bg-gray-200 cursor-pointer lg:text-sm sm:text-base text-[13px]"
                     onClick={() => handleCategorySelect("All")}
                   >
                     All
                   </div>
                   <div
-                    className="dropdown-item py-2 px-4 hover:bg-gray-200 cursor-pointer text-sm sm:text-base sm:text-[13px]"
+                    className="dropdown-item py-2 px-4 hover:bg-gray-200 cursor-pointer lg:text-sm sm:text-base text-[13px]"
                     onClick={() => handleCategorySelect("Watches")}
                   >
                     Watches
                   </div>
                   <div
-                    className="dropdown-item py-2 px-4 hover:bg-gray-200 cursor-pointer text-sm sm:text-base sm:text-[13px]"
+                    className="dropdown-item py-2 px-4 hover:bg-gray-200 cursor-pointer lg:text-sm sm:text-base text-[13px]"
                     onClick={() => handleCategorySelect("Unisex Wear")}
                   >
                     Unisex Wear
                   </div>
                   <div
-                    className="dropdown-item py-2 px-4 hover:bg-gray-200 cursor-pointer text-sm sm:text-base sm:text-[13px]"
+                    className="dropdown-item py-2 px-4 hover:bg-gray-200 cursor-pointer lg:text-sm sm:text-base text-[13px]"
                     onClick={() => handleCategorySelect("Belt")}
                   >
                     Belt
                   </div>
                   <div
-                    className="dropdown-item py-2 px-4 hover:bg-gray-200 cursor-pointer text-sm sm:text-base sm:text-[13px]"
+                    className="dropdown-item py-2 px-4 hover:bg-gray-200 cursor-pointer lg:text-sm sm:text-base text-[13px]"
                     onClick={() => handleCategorySelect("Baggy Jeans")}
                   >
                     Baggy Jeans
                   </div>
                   <div
-                    className="dropdown-item py-2 px-4 hover:bg-gray-200 cursor-pointer text-sm sm:text-base sm:text-[13px]"
+                    className="dropdown-item py-2 px-4 hover:bg-gray-200 cursor-pointer lg:text-sm sm:text-base text-[13px]"
                     onClick={() => handleCategorySelect("Shoes And Bags")}
                   >
                     Shoes and Bags

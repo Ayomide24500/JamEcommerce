@@ -29,7 +29,7 @@ const WelcomeAnimation = ({ onClose }) => {
           transition={{ type: "spring", stiffness: 70 }}
         >
           <h2 className="text-2xl font-bold text-center mb-4">
-            Welcome to Our Shop!
+            Welcome to Jam Collections!
           </h2>
           <p className="text-gray-600 text-center mb-4">
             Discover amazing products crafted just for you.
