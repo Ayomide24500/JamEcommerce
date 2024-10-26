@@ -41,7 +41,7 @@ const Belt: React.FC = () => {
   if (error) return <div>{error}</div>;
 
   const filteredProducts = data.filter(
-    (product) => product.category === "belt"
+    (product) => product.category === "Belt"
   );
 
   return (
